@@ -1,3 +1,13 @@
+const firebaseConfig = {
+  apiKey: "AIzaSyCOxQ7TVaw9tt-lF1-w34G_K88jh_bjH-o",
+  authDomain: "pintpal-c5c75.firebaseapp.com",
+  projectId: "pintpal-c5c75",
+  storageBucket: "pintpal-c5c75.firebasestorage.app",
+  messagingSenderId: "864608666147",
+  appId: "1:864608666147:web:9e8dfad32dc3080e8e2796",
+  measurementId: "G-MW47P6S581"
+};
+
 // ========== DATA ==========
 const SAMPLE_USERS = [
   {
