@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PintPal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="topbar">
+        <div class="brand-wrap">
+          <div class="brand-mark">P</div>
+          <div>
+            <p class="eyebrow">Brew companion</p>
+            <h1>PintPal</h1>
+          </div>
+        </div>
+        <button class="ghost-btn" id="reset-btn" type="button">Reset list</button>
+      </header>
+
+      <main class="dashboard">
+        <section class="hero card">
+          <div>
+            <p class="eyebrow accent">Your bar journal</p>
+            <h2>Track every pour, favorite, and finish.</h2>
+          </div>
+          <div class="hero-stat">
+            <span id="total-pints">0</span>
+            <small>pints logged</small>
+          </div>
+        </section>
+
+        <section class="stats-grid">
+          <article class="stat-card card">
+            <p>Top style</p>
+            <strong id="top-style">—</strong>
+          </article>
+          <article class="stat-card card">
+            <p>Average rating</p>
+            <strong id="avg-rating">—</strong>
+          </article>
+          <article class="stat-card card">
+            <p>Last pint</p>
+            <strong id="last-pint">—</strong>
+          </article>
+        </section>
+
+        <section class="content-grid">
+          <form id="pint-form" class="card form-card">
+            <h3>Add a pint</h3>
+
+            <label>
+              Pint name
+              <input id="name" name="name" type="text" placeholder="e.g. Hazy IPA" required />
+            </label>
+
+            <label>
+              Style
+              <input id="style" name="style" type="text" placeholder="e.g. IPA" required />
+            </label>
+
+            <div class="split-fields">
+              <label>
+                Rating
+                <input id="rating" name="rating" type="number" min="1" max="5" step="1" value="4" required />
+              </label>
+
+              <label>
+                Venue
+                <input id="venue" name="venue" type="text" placeholder="Taproom" />
+              </label>
+            </div>
+
+            <label>
+              Notes
+              <textarea id="notes" name="notes" rows="4" placeholder="Smooth, citrusy, and crisp."></textarea>
+            </label>
+
+            <button type="submit" class="primary-btn">Save pint</button>
+          </form>
+
+          <section class="card list-card">
+            <div class="list-header">
+              <h3>Recent pours</h3>
+            </div>
+            <ul id="pint-list" class="pint-list" aria-live="polite"></ul>
+          </section>
+        </section>
+      </main>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
