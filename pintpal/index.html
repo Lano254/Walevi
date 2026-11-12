@@ -1,98 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PintPal</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="styles.css" />
-  </head>
-  <body>
-    <div class="page-shell">
-      <header class="topbar">
-        <div class="brand-wrap">
-          <div class="brand-mark">P</div>
-          <div>
-            <p class="eyebrow">Brew companion</p>
-            <h1>PintPal</h1>
-          </div>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>PintPal – Find Your Drinking Buddy</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Onboarding / Profile Setup -->
+  <div id="onboarding" class="screen">
+    <div class="container">
+      <h1>🍺 PintPal</h1>
+      <p class="subtitle">Find people who actually want to grab a drink</p>
+      
+      <form id="profile-form">
+        <div class="form-group">
+          <label>Your Name</label>
+          <input type="text" id="name" placeholder="Alex" required>
         </div>
-        <button class="ghost-btn" id="reset-btn" type="button">Reset list</button>
-      </header>
+        <div class="form-group">
+          <label>Age</label>
+          <input type="number" id="age" min="18" max="99" placeholder="25" required>
+        </div>
+        <div class="form-group">
+          <label>City</label>
+          <input type="text" id="city" placeholder="Nairobi" required>
+        </div>
+        <div class="form-group">
+          <label>Photo URL</label>
+          <input type="url" id="photo" placeholder="https://..." required>
+          <small>Paste any image link (or use a placeholder)</small>
+        </div>
+        <div class="form-group">
+          <label>Favorite Drinks (comma separated)</label>
+          <input type="text" id="drinks" placeholder="Tusker, Whiskey, Gin & Tonic" required>
+        </div>
+        <div class="form-group">
+          <label>Short Bio</label>
+          <textarea id="bio" rows="3" placeholder="Looking for people to hit the bar with on Fridays..." required></textarea>
+        </div>
+        <button type="submit" class="btn primary">Start Swiping</button>
+      </form>
+    </div>
+  </div>
 
-      <main class="dashboard">
-        <section class="hero card">
-          <div>
-            <p class="eyebrow accent">Your bar journal</p>
-            <h2>Track every pour, favorite, and finish.</h2>
-          </div>
-          <div class="hero-stat">
-            <span id="total-pints">0</span>
-            <small>pints logged</small>
-          </div>
-        </section>
+  <!-- Main App -->
+  <div id="app" class="screen hidden">
+    <!-- Header -->
+    <header>
+      <div class="logo">🍺 PintPal</div>
+      <nav>
+        <button class="nav-btn active" data-tab="discover">Discover</button>
+        <button class="nav-btn" data-tab="matches">Matches <span id="match-count" class="badge hidden">0</span></button>
+        <button class="nav-btn" data-tab="profile">Me</button>
+      </nav>
+    </header>
 
-        <section class="stats-grid">
-          <article class="stat-card card">
-            <p>Top style</p>
-            <strong id="top-style">—</strong>
-          </article>
-          <article class="stat-card card">
-            <p>Average rating</p>
-            <strong id="avg-rating">—</strong>
-          </article>
-          <article class="stat-card card">
-            <p>Last pint</p>
-            <strong id="last-pint">—</strong>
-          </article>
-        </section>
-
-        <section class="content-grid">
-          <form id="pint-form" class="card form-card">
-            <h3>Add a pint</h3>
-
-            <label>
-              Pint name
-              <input id="name" name="name" type="text" placeholder="e.g. Hazy IPA" required />
-            </label>
-
-            <label>
-              Style
-              <input id="style" name="style" type="text" placeholder="e.g. IPA" required />
-            </label>
-
-            <div class="split-fields">
-              <label>
-                Rating
-                <input id="rating" name="rating" type="number" min="1" max="5" step="1" value="4" required />
-              </label>
-
-              <label>
-                Venue
-                <input id="venue" name="venue" type="text" placeholder="Taproom" />
-              </label>
-            </div>
-
-            <label>
-              Notes
-              <textarea id="notes" name="notes" rows="4" placeholder="Smooth, citrusy, and crisp."></textarea>
-            </label>
-
-            <button type="submit" class="primary-btn">Save pint</button>
-          </form>
-
-          <section class="card list-card">
-            <div class="list-header">
-              <h3>Recent pours</h3>
-            </div>
-            <ul id="pint-list" class="pint-list" aria-live="polite"></ul>
-          </section>
-        </section>
-      </main>
+    <!-- Discover Tab -->
+    <div id="discover" class="tab active">
+      <div class="card-stack" id="card-stack">
+        <!-- Cards will be injected here -->
+      </div>
+      <div class="actions">
+        <button class="action-btn pass" id="pass-btn">✕</button>
+        <button class="action-btn like" id="like-btn">♥</button>
+      </div>
+      <div id="no-more" class="empty-state hidden">
+        <h2>No more people nearby</h2>
+        <p>Check back later or adjust your filters</p>
+      </div>
     </div>
 
-    <script src="app.js"></script>
-  </body>
+    <!-- Matches Tab -->
+    <div id="matches" class="tab">
+      <div id="matches-list" class="matches-list"></div>
+      <div id="no-matches" class="empty-state">
+        <h2>No matches yet</h2>
+        <p>Keep swiping — the good ones are out there</p>
+      </div>
+    </div>
+
+    <!-- Profile Tab -->
+    <div id="profile" class="tab">
+      <div class="profile-card" id="my-profile"></div>
+      <button class="btn secondary" id="edit-profile">Edit Profile</button>
+      <button class="btn danger" id="reset-app">Reset App</button>
+    </div>
+
+    <!-- Chat Modal -->
+    <div id="chat-modal" class="modal hidden">
+      <div class="modal-content">
+        <div class="chat-header">
+          <button id="close-chat">←</button>
+          <div class="chat-user">
+            <img id="chat-avatar" src="" alt="">
+            <span id="chat-name"></span>
+          </div>
+        </div>
+        <div id="chat-messages" class="chat-messages"></div>
+        <form id="chat-form">
+          <input type="text" id="chat-input" placeholder="Say something..." autocomplete="off">
+          <button type="submit">Send</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
 </html>
